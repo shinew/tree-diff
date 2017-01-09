@@ -2,7 +2,7 @@ import functools
 # Naive O(F_1^2 * F_2^2) algorithm
 
 
-# adapted from https://wiki.python.org/moin/PythonDecoratorLibrary
+# Adapted from https://wiki.python.org/moin/PythonDecoratorLibrary
 def memoize(f):
     cache = {}
     @functools.wraps(f)
@@ -15,15 +15,12 @@ def memoize(f):
 
 empty_forest = ()
 empty_node = None
+
+
 class Tree(object):
     def __init__(self, label, children=empty_forest):
         self.label = label
         self.children = children
-
-    @property
-    @memoize
-    def size(self):
-        return sum(child.size for child in self.children) + 1
 
 
 def cost(old_node, new_node):
@@ -57,6 +54,9 @@ def diff(old, new):
             diff(v.children, w.children) + diff(old[:-1], new[:-1]) + cost(v, w))
 
 
+# Tests
+
+
 tree1 = Tree('f',
         (Tree('d',
             (Tree('a'),
@@ -70,3 +70,5 @@ tree2 = Tree('a',
 
 assert diff((tree1,), (tree1,)) == 0
 assert diff((tree1,), (tree2,)) == 4
+assert diff((tree2,), (tree1,)) == 4
+assert diff((tree2,), (tree2,)) == 0
