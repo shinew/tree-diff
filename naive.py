@@ -42,8 +42,8 @@ def cost(old_node, new_node):
 def diff(old, new):
     v = old[-1] if old is not empty_forest else empty_node
     w = new[-1] if new is not empty_forest else empty_node
-    old_minus_v = old[:-1] + v.children if old is not empty_forest else ()
-    new_minus_w = new[:-1] + w.children if new is not empty_forest else ()
+    old_minus_v = old[:-1] + v.children if old is not empty_forest else empty_forest
+    new_minus_w = new[:-1] + w.children if new is not empty_forest else empty_forest
 
     if old is empty_forest and new is empty_forest:
         return 0
